@@ -18,7 +18,11 @@
 
 简报之后加固定栏目【今日 GitHub 项目】，推荐 1~2 个和用户最近在学的东西相关、质量高的开源项目。做法：
 1) 先看他在学什么：读 <资料目录>/每日小复盘_记录.md 最后 3~5 条（看「学到 / 卡住 / 明天第一件事 / 动的线」），必要时再读 <资料目录>/计划表.md。他现在的线是：<在这里写下他的学习线，例如 C 语言、单片机、AI、英语、打字>。
-2) 找项目：在 terminal 用已登录的 gh 搜，例如 gh search repos "C language exercises" --sort stars --limit 15；再用 gh api repos/<owner>/<name> --jq '.stargazers_count, .pushed_at, .description' 核实 star 数和最近更新时间。gh 用不了就改用 web_search 搜 site:github.com。
+2) 找项目：在 terminal 用已登录的 gh 按「topic + star 门槛」搜，比随便搜关键词准得多，例如：
+   gh search repos --topic c-programming --stars '>500' --sort stars --limit 10 --json fullName,stargazersCount,pushedAt,description
+   gh search repos --topic embedded-c --stars '>200' --sort updated --limit 10 --json fullName,stargazersCount,pushedAt,description
+   gh search repos --topic machine-learning --stars '>5000' --sort stars --limit 10 --json fullName,stargazersCount,pushedAt,description
+   再用 gh api repos/<owner>/<name> --jq '.stargazers_count, .pushed_at, .description' 核实 star 数和最近更新时间。一次搜不到合适的就换关键词或 topic（beginner-project / awesome / algorithms / stm32 / micropython / llm / c-programming）。gh 用不了（没网、没登录）才改用 web_search 搜 site:github.com。
 3) 质量门槛：star 一般 500 以上（冷门但很好的嵌入式/教学项目 100 以上也行）；最近一年内有提交；README 说人话、对初学者真的有用；宁缺勿滥，挑不出好的就只推 1 个，实在没有就写一句「今天没找到特别合适的」。不推爬虫脚本、薅羊毛、破解类项目。
 4) 不重复推：先读 <资料目录>/GitHub推荐记录.md（不存在就当空的），里面记过的仓库不要再提；推完把这次的项目追加进去，每行：- YYYY-MM-DD owner/name（一句话为什么推荐）。
 5) 每个项目写：
