@@ -1,0 +1,5 @@
+*.local.md
+tools/_entry.json
+backup/
+__pycache__/
+*.pyc

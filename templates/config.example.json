@@ -1,0 +1,17 @@
+{
+  "_说明": "个人配置示例：把 <...> 换成你自己的值。任务 prompt 里引用这些路径，技能本体里不写死人名和路径。",
+  "name": "<你的名字/昵称>",
+  "paths": {
+    "base": "<资料目录>",
+    "review_xlsx": "<资料目录>/每日复盘记录.xlsx",
+    "daily_md": "<资料目录>/每日小复盘_记录.md",
+    "plan_md": "<资料目录>/计划表.md",
+    "picked_repos": "<资料目录>/GitHub推荐记录.md",
+    "record_py": "<资料目录>/tools/record.py",
+    "entry_json": "<资料目录>/tools/_entry.json"
+  },
+  "lines": ["课内", "专业能力", "英语"],
+  "tone": "<口吻要求，例如：中文、简洁、不要用感叹号堆砌>",
+  "deliver": "<平台>:<chat_id>",
+  "fatigue_window": ["<起>", "<止>"]
+}
