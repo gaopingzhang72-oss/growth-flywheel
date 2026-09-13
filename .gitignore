@@ -3,3 +3,16 @@ tools/_entry.json
 backup/
 __pycache__/
 *.pyc
+
+# ---- 安全：密钥与本地私有配置，绝不提交 ----
+.env
+.env.*
+!.env.example
+*.env
+config.local.json
+*.local.json
+*.key
+*.pem
+*.p12
+credentials*
+secrets*
