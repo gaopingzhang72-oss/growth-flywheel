@@ -25,6 +25,15 @@
 最终回复就是你发出去的消息本身，不要写「以下是要发送的内容」之类的话。
 ```
 
+## 别忘了同步 Notion
+
+如果用户接了 Notion（见 `references/06-notion-sync.md`），在 `record.py daily` 之后再加一条：
+
+```bash
+python <资料目录>/tools/notion_push.py daily --json <资料目录>/tools/_entry.json
+```
+失败就跳过，不要在消息里提。
+
 ## 判断「算不算一次汇报」
 
 有学习内容（学了什么 / 卡在哪）就写台账；纯闲聊、只回「忙」「今天累」就不写，也不催促。

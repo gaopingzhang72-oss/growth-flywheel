@@ -19,5 +19,7 @@
 2) 在 terminal 跑：python "<资料目录>/tools/record.py" weekly --json "<资料目录>/tools/_entry.json"（报错就改用 Hermes 自带解释器）。这会写进《每日复盘记录.xlsx》的「② 每周复盘」表（含「运动」列）并重算「③ 统计」表和折线图。
 如果他这周汇报很少或没汇报，就温柔地问一句他卡在哪里，不要责备，也不要编造内容写台账。
 
+**同步 Notion**（如果接了，见 `references/06-notion-sync.md`）：`python <资料目录>/tools/notion_push.py weekly --json <资料目录>/tools/_entry.json`，失败跳过。
+
 最终回复就是你发出去的消息本身，不要写「以下是要发送的内容」之类的话。
 ```

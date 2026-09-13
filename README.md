@@ -32,7 +32,9 @@ references/           四条定时任务的 prompt 模板（可直接粘贴使�
   03-weekly-review.md     每周大复盘
   04-speaking-practice.md 专项小练习（以英语口语为例）
   05-setup.md             从零搭建的分步清单
+  06-notion-sync.md       同步进 Notion（建集成、字段表、踩过的坑）
 scripts/record.py     台账写入脚本（openpyxl，只依赖这一个库）
+scripts/notion_push.py 把复盘/项目同步进 Notion 数据库（可选，失败不影响 Excel）
 templates/            计划表模板 / 每日记录模板 / 个人配置示例
 ```
 
@@ -53,6 +55,22 @@ python ~/growth-flywheel/tools/record.py init
 **投递目标一定要显式写**：Hermes 的 cron 发不到桌面应用，`deliver` 要写成你手机上能收到的目标（`weixin:<id>@im.wechat`、`telegram:<chat_id>` …），想直接在消息里接着回话就再开 `attach_to_session=True`。
 
 细节和验证清单一律见 [`references/05-setup.md`](references/05-setup.md)。
+
+## 可选：同时同步进 Notion
+
+Excel 是主账本（统计、图表），Notion 是手机上翻看和随手改的镜像。两个都写，谁挂了都不影响另一边：
+
+```bash
+python scripts/notion_push.py check                                            # 自检
+python scripts/notion_push.py daily  --json _entry.json                        # 写完 Excel 之后
+python scripts/notion_push.py weekly --json _entry.json
+python scripts/notion_push.py repo --name "owner/name" --why "..." --step "..."
+```
+
+需要先在 Notion 网页版建一个集成（现在叫 Connection）、把密钥写进 `.env`、并把页面「连接」给这个集成。
+逐步操作和**六个真实踩过的坑**（`data_source_id` 和 `database_id` 不是一回事、建库时必须用
+`initial_data_source.properties`、Hermes 会把声明的环境变量预置成空字符串……）见
+[`references/06-notion-sync.md`](references/06-notion-sync.md)。
 
 ## 不用 Hermes 也能用
 

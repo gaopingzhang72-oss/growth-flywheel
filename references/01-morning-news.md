@@ -34,6 +34,9 @@
 整条消息保持简洁：新闻 5~8 条 + 项目 1~2 个，末尾不用总结、不用客套。只输出最终简报，不要输出过程。
 ```
 
+**同步 Notion**（如果接了，见 `references/06-notion-sync.md`）：每个推荐项目跑一次
+`python <资料目录>/tools/notion_push.py repo --name "owner/name" --why "为什么适合" --step "上手第一步" --date 今天`，失败跳过。
+
 ## 验收标准
 
 - 项目和他最近两周的复盘内容真的对得上（不是随便推热榜）；

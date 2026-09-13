@@ -69,6 +69,15 @@ python record.py stats                                  # 只重算「③ 统计
 
 记录 md（`每日小复盘_记录.md`）与 xlsx 是**两套并存**的落地：md 给人逐条翻，xlsx 给统计和图表用，两边都要写。
 
+## 同步进 Notion（可选，和 Excel 并存）
+
+Excel 是主账本（统计和图表靠它），Notion 是手机端翻看、随手改的镜像。两个都写，互不依赖——
+Notion 挂了不允许影响 Excel 记账。
+
+脚本 `scripts/notion_push.py`：自己从 `.env` 读 `NOTION_API_KEY` 和
+`NOTION_DAILY_DS / NOTION_WEEKLY_DS / NOTION_REPO_DS`，按「同一天/同一周更新，否则新建」写入，
+失败只打印一行提示。完整搭建步骤 + 踩过的坑见 `references/06-notion-sync.md`。
+
 ## 维护手册
 
 - **加/换/删一条学习线**：改 `record.py` 里的 `LINES`（统计口径）+ 每日任务的第 3 步提示 + 每周任务的评价条数。
@@ -84,6 +93,9 @@ python record.py stats                                  # 只重算「③ 统计
 - **Windows 上 cron 里 `python` 可能不在 PATH**：退回用 Hermes 自带解释器 `"$LOCALAPPDATA/hermes/hermes-agent/venv/Scripts/python"`。
 - **改表头前先备份 xlsx**：迁移逻辑只加列、不删列，但备份仍是最便宜的保险（`tools/backup/` 下留一份）。
 - **去重文件必须写**：GitHub 项目推荐要落到 `GitHub推荐记录.md`，否则每天早上都会推同一个热门仓库。
+- **Notion 建库别用 `POST /v1/data_sources` + properties**：那样只建出一个 `Name` 列；要 `POST /v1/databases`，字段放在 `initial_data_source.properties` 里（已建错就 `PATCH /v1/data_sources/{id}` 补字段）。
+- **`data_source_id ≠ database_id`**：查询和建页面都用 `data_source_id`；搜索接口给的 `parent.database_id` 拿去做 query 会 404。往已有页面写内容用 `PATCH /v1/blocks/{id}/children`（`PATCH /v1/pages/{id}/markdown` 在 2025-09-03 会报 `body.type should be defined`）。
+- **Hermes 会把技能声明的环境变量预置成空字符串**（例如 `NOTION_API_KEY=""`）：脚本读 `.env` 时必须把「空值」当作没设置，否则永远读不到真值。这条对任何自己读 .env 的脚本都成立。
 - **折线图按 ISO 周聚合**，跨年时周次号会重复（第 1 周出现两次）。长期用建议把周标签换成「年-周」，或在 `rebuild_stats` 里改用日期做横轴。
 
 ## 参考文件
@@ -93,5 +105,6 @@ python record.py stats                                  # 只重算「③ 统计
 - `references/03-weekly-review.md`：每周大复盘的 prompt 模板
 - `references/04-speaking-practice.md`：专项小练习的 prompt 模板
 - `references/05-setup.md`：从零搭建（建 cron、放资料、验证）的分步清单
+- `references/06-notion-sync.md`：把复盘同步进 Notion 的搭建步骤与坑
 - `templates/`：计划表模板、每日记录模板、个人配置示例
 - `references/99-personal-config.local.md`：本机的真实路径、任务 id、口吻约定（**私人文件，不进公开仓库**）
